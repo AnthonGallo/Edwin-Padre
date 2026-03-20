@@ -737,7 +737,7 @@
     if(progress >= 1) {
       raceActiveFlag = false;
       cancelAnimationFrame(animFrame);
-      raceMsg.innerHTML = '🏆 ¡META ALCANZADA! 🏆<br> ¡FELIZ CUMPLEAÑOS, CAMPEÓN ECUATORIANO! 🇪🇨';
+      raceMsg.innerHTML = '🏆 ¡META ALCANZADA! 🏆<br> ¡FELIZ CUMPLEAÑOS, CAMPEÓN! 🇪🇨';
       launchConfetti(45);
       runnerEl.style.right = '10px';
     } else {
@@ -749,7 +749,7 @@
     if(animFrame) cancelAnimationFrame(animFrame);
     raceModalDiv.style.display = 'flex';
     if(runnerEl) runnerEl.style.right = 'calc(100% - 60px)';
-    raceMsg.innerHTML = '🏁 ¡LISTOS... A CORRER HACIA LA META! (IZQUIERDA) 🏁';
+    raceMsg.innerHTML = '🏁 ¡LISTOS... A CORRER HACIA LA META! 🏁';
     raceActiveFlag = true;
     startTimestamp = Date.now();
     animFrame = requestAnimationFrame(runAnimation);
