@@ -19,7 +19,7 @@
       color: #1E2A3E;
     }
 
-    /* Bandera de Ecuador: franjas elegantes en elementos decorativos */
+    /* Franjas en elementos decorativos */
     .flag-accent {
       background: linear-gradient(135deg, #FFD700 0%, #FFD700 33%, #0033A0 33%, #0033A0 66%, #ED1C24 66%, #ED1C24 100%);
       height: 4px;
@@ -87,7 +87,7 @@
       display: block;
     }
 
-    /* ========== PANTALLA DE CALENTAMIENTO (ELEGANTE) ========== */
+    /* ========== PANTALLA DE CALENTAMIENTO ========== */
     .warmup-screen {
       background: linear-gradient(135deg, #FFF9F0 0%, #FFF2E0 100%);
       display: flex;
@@ -213,7 +213,7 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    /* ========== PANTALLA PRINCIPAL: ESTADIO ELEGANTE ECUADOR ========== */
+    /* ========== PANTALLA PRINCIPAL: ESTADIO ECUADOR ========== */
     .stadium-screen {
       background: linear-gradient(120deg, #FFF8E7, #FFF3E0);
       padding-bottom: 2rem;
@@ -482,7 +482,7 @@
       cursor: pointer;
     }
 
-    /* Responsive elegante para móviles */
+    /* Responsive para móviles */
     @media (max-width: 768px) {
       .screen { padding: 1rem; }
       .warmup-title { font-size: 1.8rem; }
@@ -523,7 +523,7 @@
 <!-- PANTALLA 1: CALENTAMIENTO -->
 <div id="warmupScreen" class="screen warmup-screen active-screen">
   <div class="medal-icon">🇪🇨🏅🏃‍♂️</div>
-  <h1 class="warmup-title">✨ CUALIDADES DE UN CAMPEÓN ✨</h1>
+  <h1 class="warmup-title">✨ CUALIDADES DEL CAMPEÓN ✨</h1>
   <p class="warmup-sub">Para celebrar el legado del mejor atleta y papá,<br> reúne las 8 cualidades que lo hacen único.</p>
   
   <div class="qualities-grid" id="qualitiesGrid">
@@ -537,7 +537,7 @@
     <div class="athlete-card" data-quality="victoria"><span class="athlete-icon">🏆</span><span class="athlete-name">Victoria</span></div>
   </div>
   
-  <button id="startRaceBtn" class="start-race-btn" disabled>🏁 ¡INICIAR HOMENAJE! 🏁</button>
+  <button id="startRaceBtn" class="start-race-btn" disabled>🏁 ¡INICIAR! 🏁</button>
   <div class="counter-badge" id="qualityCounter">Cualidades: 0 / 8</div>
 </div>
 
@@ -561,24 +561,24 @@
       <div class="medal-grid">
         <div class="medal-card" data-medal="oro"><div class="medal-emoji">🥇</div><div>Padre Dorado</div><small>Orgullo Nacional</small></div>
         <div class="medal-card" data-medal="velocidad"><div class="medal-emoji">⚡</div><div>Velocidad de Águila</div><small>Andes</small></div>
-        <div class="medal-card" data-medal="resistencia"><div class="medal-emoji">💪</div><div>Fortaleza Inquebrantable</div><small>ejemplo familiar</small></div>
+        <div class="medal-card" data-medal="resistencia"><div class="medal-emoji">💪</div><div>Fortaleza Inquebrantable</div><small>Ejemplo familiar</small></div>
       </div>
       
       <div class="personal-bests" id="personalBests">
         <h3>📋 RÉCORDS PERSONALES (Toca para descubrir)</h3>
-        <div class="pb-item" data-pb="pb1"><div class="pb-icon">🏃‍♂️</div><div><strong>100m con amor:</strong> <span id="pb1Value">🏁 Espera tu toque →</span></div></div>
+        <div class="pb-item" data-pb="pb1"><div class="pb-icon">🏃‍♂️</div><div><strong>10K con cariño:</strong> <span id="pb1Value">🏁 Espera tu toque →</span></div></div>
         <div class="pb-item" data-pb="pb2"><div class="pb-icon">🏅</div><div><strong>Relevo familiar:</strong> <span id="pb2Value">🎖️ Mensaje oculto →</span></div></div>
         <div class="pb-item" data-pb="pb3"><div class="pb-icon">❤️</div><div><strong>Corazón de campeón:</strong> <span id="pb3Value">✨ Toca para sentir →</span></div></div>
       </div>
       
       <div class="message-runner">
         “Cada zancada tuya nos enseñó a luchar con honor. Tu pista ha sido el hogar, tu meta siempre fue nuestra felicidad. ¡Gracias por ser nuestro héroe con los colores de Ecuador!”
-        <div class="signature-runner">Con admiración eterna, tu hijo 💙🇪🇨</div>
+        <div class="signature-runner">Con admiración eterna, tu hijo Anthon 💙</div>
       </div>
       
       <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
-        <button id="specialRaceBtn" class="restart-race">🏃‍♂️ ¡CORRE CON PAPÁ! (Meta a la izquierda) 🏃‍♂️</button>
-        <button id="resetWarmupBtn" class="reset-ceremony" style="background:#0033A0;">🔄 Reiniciar Ceremonia</button>
+        <button id="specialRaceBtn" class="restart-race">🏃‍♂️ ¡CORRE CON PAPÁ! 🏃‍♂️</button>
+        <button id="resetWarmupBtn" class="reset-ceremony" style="background:#0033A0;">🔄 Reiniciar Evento</button>
       </div>
     </div>
   </div>
@@ -695,7 +695,7 @@
   pbItems.forEach(item => {
     item.addEventListener('click', () => {
       const pbId = item.dataset.pb;
-      if(pbId === 'pb1') pbSpans.pb1.innerText = '🏁 9"83 – Récord de velocidad en enseñar valores';
+      if(pbId === 'pb1') pbSpans.pb1.innerText = '🏁 36"15 – Récord de velocidad en enseñar valores';
       else if(pbId === 'pb2') pbSpans.pb2.innerText = '🏅 Relevo eterno: guías a toda la familia hacia la meta';
       else pbSpans.pb3.innerText = '❤️ Corazón inquebrantable, el mejor atleta dentro y fuera de la pista';
       item.style.backgroundColor = 'rgba(255,215,0,0.2)';
@@ -713,7 +713,7 @@
     });
   }
 
-  // ---------- CARRERA CON META A LA IZQUIERDA (emoji corre hacia izquierda) ----------
+  // ---------- CARRERA CON META A LA IZQUIERDA ----------
   const specialRace = document.getElementById('specialRaceBtn');
   const raceModalDiv = document.getElementById('raceModal');
   const runnerEl = document.getElementById('runnerSprite');
