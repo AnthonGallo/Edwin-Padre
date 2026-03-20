@@ -2,25 +2,44 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🎂 Sorpresa Especial para Mamá Patricia 🎂</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>🏅 Atleta de Corazón – Feliz Cumpleaños Papá 🏃‍♂️</title>
   <style>
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
-    
+
     body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #ff9a9e, #fecfef, #fecfef, #fecfef);
+      font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #0b2b1f 0%, #1c4e3a 100%);
       min-height: 100vh;
       overflow-x: hidden;
+      color: #f5f5f5;
     }
-    
-    .sparkles {
+
+    /* pista de atletismo animada de fondo */
+    .track-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background-image: repeating-linear-gradient(
+        90deg,
+        rgba(255, 215, 0, 0.08) 0px,
+        rgba(255, 215, 0, 0.08) 2px,
+        transparent 2px,
+        transparent 40px
+      );
+      background-size: 40px 100%;
+    }
+
+    /* partículas tipo césped / polvo de pista */
+    .dust-particles {
       position: fixed;
       top: 0;
       left: 0;
@@ -29,1094 +48,754 @@
       pointer-events: none;
       z-index: 1;
     }
-    
-    .sparkle {
+
+    .dust {
       position: absolute;
-      color: #ffd700;
-      font-size: 16px;
-      animation: twinkle 2s ease-in-out infinite;
+      background: radial-gradient(circle, rgba(210, 180, 140, 0.6), transparent);
+      border-radius: 50%;
+      opacity: 0;
+      animation: dustFloat 6s infinite ease-in-out;
     }
-    
-    @keyframes twinkle {
-      0%, 100% { opacity: 0; transform: scale(0); }
-      50% { opacity: 1; transform: scale(1) rotate(180deg); }
+
+    @keyframes dustFloat {
+      0% { transform: translateY(0) scale(0); opacity: 0; }
+      20% { opacity: 0.4; }
+      80% { opacity: 0.3; }
+      100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
     }
-    
+
+    /* contenedor principal */
     .screen {
       display: none;
-      min-height: 100vh;
-      padding: 20px;
       position: relative;
-      z-index: 2;
+      z-index: 10;
+      min-height: 100vh;
+      padding: 1.5rem;
     }
-    
-    .active {
+
+    .active-screen {
       display: block;
     }
-    
-    /* PANTALLA DE INGREDIENTES MÁGICOS */
-    .ingredients-screen {
+
+    /* ========== PANTALLA DE CALENTAMIENTO (INGREDIENTES DEPORTIVOS) ========== */
+    .warmup-screen {
+      background: radial-gradient(circle at 10% 20%, #2a5f44, #0f2c1f);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: radial-gradient(circle, #ff6b6b, #4ecdc4, #45b7d1);
-      color: white;
     }
-    
-    .magic-title {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
-      animation: bounce 2s ease-in-out infinite;
+
+    .medal-icon {
+      font-size: 4rem;
+      filter: drop-shadow(0 0 6px gold);
+      animation: bounceMedal 1.8s infinite;
     }
-    
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-15px); }
-      60% { transform: translateY(-8px); }
+
+    @keyframes bounceMedal {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
     }
-    
-    .ingredients-instruction {
-      font-size: 1.3rem;
-      margin-bottom: 30px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      max-width: 600px;
+
+    .warmup-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFD966, #F9A825);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      margin: 1rem 0 0.5rem;
     }
-    
-    .ingredients-grid {
+
+    .warmup-sub {
+      font-size: 1.2rem;
+      max-width: 650px;
+      background: rgba(0,0,0,0.4);
+      padding: 0.5rem 1.2rem;
+      border-radius: 60px;
+      backdrop-filter: blur(4px);
+      margin-bottom: 2rem;
+    }
+
+    .qualities-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 20px;
-      max-width: 600px;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1.2rem;
+      max-width: 850px;
       width: 100%;
-      margin-bottom: 30px;
+      margin: 1.5rem auto;
     }
-    
-    .ingredient {
-      background: rgba(255, 255, 255, 0.2);
-      border: 3px solid transparent;
-      border-radius: 20px;
-      padding: 20px 10px;
+
+    .athlete-card {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      border-radius: 30px;
+      padding: 1.2rem 0.8rem;
       cursor: pointer;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
+      transition: all 0.25s ease;
+      border: 2px solid rgba(255, 200, 50, 0.3);
       text-align: center;
     }
-    
-    .ingredient:hover {
-      transform: translateY(-10px) scale(1.05);
-      background: rgba(255, 255, 255, 0.3);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+    .athlete-card.selected {
+      background: linear-gradient(145deg, #f5b042, #e68a2e);
+      border-color: #FFD966;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+      transform: scale(1.02);
     }
-    
-    .ingredient.selected {
-      border-color: #ffd700;
-      background: rgba(255, 215, 0, 0.3);
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
-    }
-    
-    .ingredient-icon {
-      font-size: 3rem;
+
+    .athlete-icon {
+      font-size: 2.8rem;
       display: block;
-      margin-bottom: 10px;
     }
-    
-    .ingredient-name {
-      font-size: 1rem;
+
+    .athlete-name {
       font-weight: bold;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      font-size: 1rem;
+      margin-top: 8px;
+      letter-spacing: 1px;
     }
-    
-    .magic-button {
-      background: linear-gradient(145deg, #ffd700, #ffed4e);
-      color: #8b4513;
+
+    .start-race-btn {
+      background: linear-gradient(95deg, #e67e22, #f39c12);
       border: none;
-      padding: 15px 40px;
+      padding: 14px 36px;
       font-size: 1.5rem;
       font-weight: bold;
-      border-radius: 50px;
+      border-radius: 60px;
+      color: #1e2a1c;
+      margin-top: 30px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-      margin-top: 20px;
+      transition: 0.2s;
+      box-shadow: 0 8px 0 #b45f1b;
+      font-family: inherit;
     }
-    
-    .magic-button:hover {
-      transform: translateY(-5px) scale(1.1);
-      box-shadow: 0 15px 35px rgba(255, 215, 0, 0.6);
+
+    .start-race-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 4px 0 #b45f1b;
     }
-    
-    .magic-button:disabled {
+
+    .start-race-btn:disabled {
       opacity: 0.5;
-      cursor: not-allowed;
       transform: none;
+      cursor: not-allowed;
     }
-    
-    /* PANTALLA DE EXPERIENCIA INTERACTIVA */
-    .experience-screen {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+
+    .counter-badge {
+      background: #000000aa;
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 1.1rem;
+    }
+
+    /* ========== PANTALLA PRINCIPAL: ESTADIO INTERACTIVO ========== */
+    .stadium-screen {
+      background: linear-gradient(120deg, #1d3b2c, #0f2a1c);
+      padding-bottom: 2rem;
+    }
+
+    .stadium-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-photo {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: white;
-      text-align: center;
-      padding: 30px 20px;
-    }
-    
-    .experience-container {
-      max-width: 800px;
-      width: 100%;
-    }
-    
-    .celebration-title {
-      font-size: 3rem;
-      margin-bottom: 30px;
-      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
-      animation: rainbow 3s ease-in-out infinite;
-    }
-    
-    @keyframes rainbow {
-      0% { color: #ff6b6b; }
-      16% { color: #ffa500; }
-      32% { color: #ffd700; }
-      48% { color: #32cd32; }
-      64% { color: #00bfff; }
-      80% { color: #8a2be2; }
-      100% { color: #ff6b6b; }
-    }
-    
-    .interactive-sections {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-    
-    .section {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 25px;
-      padding: 30px;
-      backdrop-filter: blur(15px);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    .section-title {
-      font-size: 1.8rem;
+      justify-content: center;
       margin-bottom: 20px;
-      color: #ffd700;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      perspective: 800px;
     }
-    
-    .memory-card {
-      background: linear-gradient(145deg, #ff6b6b, #ff8e8e);
-      color: white;
-      padding: 25px;
-      border-radius: 20px;
-      margin: 15px 0;
-      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
-      transition: all 0.3s ease;
-      cursor: pointer;
+
+    .athlete-photo-frame {
+      background: radial-gradient(ellipse at center, #ffd966, #c97e2a);
+      border-radius: 50% 50% 40% 40%;
+      padding: 12px;
+      box-shadow: 0 20px 30px rgba(0,0,0,0.4), 0 0 0 5px rgba(255,215,0,0.4);
+      animation: photoGlow 3s infinite alternate;
+      max-width: 280px;
+      margin: 0 auto;
     }
-    
-    .memory-card:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 15px 35px rgba(255, 107, 107, 0.5);
+
+    @keyframes photoGlow {
+      0% { box-shadow: 0 20px 30px rgba(0,0,0,0.4), 0 0 0 4px #ffd966; }
+      100% { box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 12px #ffb347; }
     }
-    
-    .photo-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
+
+    .athlete-photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      border: 5px solid white;
+      background: #3e2a1f;
+    }
+
+    .welcome-title {
+      font-size: 2.3rem;
+      text-align: center;
+      margin: 20px 0 10px;
+      font-weight: 800;
+      text-shadow: 3px 3px 0 #1f3d2c;
+    }
+
+    .welcome-title span {
+      background: linear-gradient(120deg, #FFD966, #FFB347);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .sport-stats {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
       margin: 20px 0;
     }
-    
-    .memory-box {
-      aspect-ratio: 1;
-      background: linear-gradient(145deg, #4ecdc4, #44a08d);
-      border-radius: 15px;
+
+    .stat-card {
+      background: #00000055;
+      backdrop-filter: blur(12px);
+      padding: 12px 20px;
+      border-radius: 60px;
+      font-weight: bold;
+      font-size: 1rem;
+      border-left: 4px solid #F9A825;
+    }
+
+    /* sección interactiva */
+    .interactive-zone {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 48px;
+      padding: 1.8rem;
+      margin-top: 25px;
+      backdrop-filter: blur(4px);
+    }
+
+    .zone-title {
+      font-size: 1.6rem;
+      border-left: 8px solid #f4b942;
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    .medal-grid {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      gap: 20px;
       justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 20px rgba(78, 205, 196, 0.3);
-      overflow: hidden;
-      border: 3px solid #fff;
-      padding: 10px;
+      flex-wrap: wrap;
+      margin: 20px 0;
     }
-    
-    .memory-box:hover {
-      transform: rotateY(10deg) translateY(-10px);
-      box-shadow: 0 15px 35px rgba(78, 205, 196, 0.5);
-    }
-    
-    .box-icon {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
-    
-    .box-label {
-      font-size: 0.9rem;
+
+    .medal-card {
+      background: linear-gradient(145deg, #2f4b38, #1f3a2a);
+      border-radius: 40px;
+      padding: 18px;
       text-align: center;
-      font-weight: bold;
+      width: 180px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid #f4b94280;
     }
-    
-    .memory-photo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
+
+    .medal-card:hover {
+      transform: translateY(-8px);
+      background: #3b6046;
     }
-    
-    .photo-placeholder {
+
+    .medal-emoji {
       font-size: 3rem;
-      color: white;
     }
-    
-    .wishes-section {
-      background: linear-gradient(145deg, #ff9a9e, #fad0c4);
+
+    .personal-bests {
+      background: #00000033;
+      border-radius: 32px;
+      padding: 1rem 1.8rem;
+      margin-top: 25px;
     }
-    
-    .wish-card {
-      background: rgba(255, 255, 255, 0.9);
-      color: #333;
+
+    .pb-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px;
+      border-bottom: 1px dashed #ffd96680;
+    }
+
+    .pb-icon {
+      font-size: 1.8rem;
+    }
+
+    .message-runner {
+      background: linear-gradient(95deg, #f4b94220, #ffc85730);
       padding: 20px;
-      border-radius: 15px;
-      margin: 10px 0;
+      border-radius: 48px;
+      margin: 20px 0;
+      font-style: italic;
       font-size: 1.1rem;
-      line-height: 1.6;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      border-left: 5px solid #ff6b6b;
+      border-left: 8px solid #ffb347;
     }
-    
-    .final-message {
-      background: linear-gradient(145deg, #667eea, #764ba2);
-      text-align: center;
-      font-size: 1.2rem;
-      line-height: 1.8;
-      margin-top: 30px;
-    }
-    
-    .signature {
-      font-family: 'Dancing Script', cursive;
-      font-size: 2rem;
-      margin-top: 30px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
-    
-    .restart-btn {
-      background: linear-gradient(145deg, #ff6b6b, #ff5722);
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.2rem;
+
+    .signature-runner {
+      text-align: right;
       font-weight: bold;
-      border-radius: 25px;
+      margin-top: 20px;
+      font-size: 1.3rem;
+      font-family: 'Courier New', monospace;
+    }
+
+    .restart-race {
+      background: #e67e22;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 40px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: white;
+      margin-top: 30px;
       cursor: pointer;
-      margin-top: 40px;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+      transition: 0.2s;
     }
-    
-    .restart-btn:hover {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 15px 30px rgba(255, 107, 107, 0.6);
-    }
-    
-    .cake-animation {
+
+    /* Animación de carrera (sorpresa) */
+    .race-modal {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: none;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(12px);
+      z-index: 200;
+      display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
       flex-direction: column;
+      transition: 0.3s;
     }
-    
-    .cake-container {
-      text-align: center;
-      animation: cakeGrow 2s ease-out;
-    }
-    
-    @keyframes cakeGrow {
-      0% { transform: scale(0); opacity: 0; }
-      50% { transform: scale(1.1); opacity: 0.8; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    
-    .cake {
-      font-size: 8rem;
-      margin-bottom: 30px;
-      animation: cakeBounce 1s ease-in-out infinite alternate;
-    }
-    
-    @keyframes cakeBounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-10px); }
-    }
-    
-    .cake-message {
-      color: #ffd700;
-      font-size: 2.5rem;
-      font-weight: bold;
-      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
-      margin-bottom: 20px;
-      animation: textGlow 2s ease-in-out infinite alternate;
-    }
-    
-    @keyframes textGlow {
-      0% { text-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700, 0 0 40px #ffd700; }
-      100% { text-shadow: 0 0 30px #ffd700, 0 0 40px #ffd700, 0 0 50px #ffd700; }
-    }
-    
-    .candles {
-      font-size: 3rem;
-      margin: 20px 0;
-      animation: candleFlicker 1.5s ease-in-out infinite;
-    }
-    
-    @keyframes candleFlicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-    
-    .continue-btn {
-      background: linear-gradient(145deg, #ff6b6b, #ff5722);
-      color: white;
-      border: none;
-      padding: 15px 40px;
-      font-size: 1.3rem;
-      font-weight: bold;
-      border-radius: 30px;
-      cursor: pointer;
-      margin-top: 30px;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
-      animation: buttonPulse 2s ease-in-out infinite;
-    }
-    
-    @keyframes buttonPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-    
-    .live-cake-title {
-      color: #ffd700;
-      font-size: 2rem;
-      font-weight: bold;
-      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
-      margin-bottom: 30px;
-      animation: titlePulse 1.5s ease-in-out infinite;
-    }
-    
-    @keyframes titlePulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-    
-    .cake-build-step {
-      margin: 20px 0;
-      text-align: center;
-      animation: stepAppear 0.8s ease-out;
-    }
-    
-    @keyframes stepAppear {
-      0% { transform: translateY(30px) scale(0.5); opacity: 0; }
-      50% { transform: translateY(-5px) scale(1.1); opacity: 0.8; }
-      100% { transform: translateY(0) scale(1); opacity: 1; }
-    }
-    
-    .step-cake {
-      font-size: 4rem;
-      margin-bottom: 15px;
-      animation: stepBounce 0.6s ease-in-out;
-    }
-    
-    @keyframes stepBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-    
-    .step-text {
-      color: #fff;
-      font-size: 1.3rem;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-      font-weight: bold;
-    }
-    
-    .cake-builder {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(10px);
-      border: 2px solid #ffd700;
-      text-align: center;
-      min-width: 200px;
-      z-index: 100;
-    }
-    
-    .cake-builder h4 {
-      color: #8b4513;
-      margin-bottom: 15px;
-      font-size: 1.1rem;
-    }
-    
-    .cake-layers {
-      display: flex;
-      flex-direction: column-reverse;
-      align-items: center;
-      gap: 5px;
-      margin: 15px 0;
-    }
-    
-    .cake-layer {
-      opacity: 0.3;
-      transition: all 0.5s ease;
-      font-size: 1.5rem;
-    }
-    
-    .cake-layer.active {
-      opacity: 1;
-      animation: layerAppear 0.8s ease-out;
-    }
-    
-    @keyframes layerAppear {
-      0% { transform: translateY(20px) scale(0.8); opacity: 0; }
-      50% { transform: translateY(-5px) scale(1.1); opacity: 0.8; }
-      100% { transform: translateY(0) scale(1); opacity: 1; }
-    }
-    
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background: #e0e0e0;
-      border-radius: 4px;
+
+    .race-track {
+      background: #402e1b;
+      width: 85%;
+      max-width: 700px;
+      border-radius: 100px;
+      padding: 15px;
+      position: relative;
       overflow: hidden;
-      margin-top: 10px;
+      box-shadow: 0 0 0 6px #f4b942, inset 0 0 0 4px #d48d2b;
     }
-    
-    .progress-fill {
+
+    .runner-sprite {
+      font-size: 3.2rem;
+      position: relative;
+      left: 0%;
+      transition: left 0.02s linear;
+      filter: drop-shadow(2px 4px 6px black);
+    }
+
+    .finish-line {
+      position: absolute;
+      right: 10px;
+      top: 0;
       height: 100%;
-      background: linear-gradient(90deg, #ff6b6b, #ffd700, #4ecdc4);
-      width: 0%;
-      transition: width 0.5s ease;
-      border-radius: 4px;
+      width: 40px;
+      background: repeating-linear-gradient(45deg, black, black 10px, white 10px, white 20px);
+      opacity: 0.9;
     }
-    
-    /* Responsive Design Improvements */
-    @media (max-width: 1200px) {
-      .celebration-title {
-        font-size: 2.8rem;
-      }
+
+    .race-message {
+      color: gold;
+      font-size: 2rem;
+      margin-top: 30px;
+      font-weight: bold;
     }
-    
-    @media (max-width: 992px) {
-      .celebration-title {
-        font-size: 2.5rem;
-      }
-      
-      .magic-title {
-        font-size: 2.2rem;
-      }
-      
-      .ingredients-instruction {
-        font-size: 1.2rem;
-        padding: 0 15px;
-      }
+
+    .close-race {
+      background: #f39c12;
+      margin-top: 30px;
+      padding: 12px 35px;
+      border-radius: 40px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
     }
-    
-    @media (max-width: 768px) {
-      .magic-title {
-        font-size: 2rem;
-      }
-      
-      .celebration-title {
-        font-size: 2.2rem;
-      }
-      
-      .ingredients-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 15px;
-      }
-      
-      .ingredient {
-        padding: 15px 8px;
-      }
-      
-      .ingredient-icon {
-        font-size: 2.5rem;
-      }
-      
-      .section {
-        padding: 20px;
-      }
-      
-      .experience-screen {
-        padding: 20px 15px;
-      }
-      
-      .cake {
-        font-size: 5rem;
-      }
-      
-      .cake-message {
-        font-size: 1.8rem;
-      }
-      
-      .candles {
-        font-size: 2rem;
-      }
-      
-      .cake-builder {
-        bottom: 10px;
-        right: 10px;
-        padding: 15px;
-        min-width: 170px;
-      }
-      
-      .memory-card {
-        padding: 20px;
-      }
-      
-      .photo-gallery {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    
-    @media (max-width: 576px) {
-      .magic-title {
-        font-size: 1.8rem;
-      }
-      
-      .celebration-title {
-        font-size: 1.8rem;
-      }
-      
-      .ingredients-instruction {
-        font-size: 1.1rem;
-      }
-      
-      .ingredients-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .section-title {
-        font-size: 1.5rem;
-      }
-      
-      .wish-card {
-        font-size: 1rem;
-        padding: 15px;
-      }
-      
-      .signature {
-        font-size: 1.5rem;
-      }
-      
-      .cake {
-        font-size: 4rem;
-      }
-      
-      .cake-message {
-        font-size: 1.5rem;
-      }
-      
-      .cake-builder {
-        position: relative;
-        bottom: unset;
-        right: unset;
-        margin: 20px auto;
-        width: 100%;
-        max-width: 300px;
-      }
-      
-      .magic-button {
-        padding: 12px 30px;
-        font-size: 1.3rem;
-      }
-      
-      .photo-gallery {
-        grid-template-columns: 1fr;
-      }
-      
-      .memory-box {
-        max-width: 200px;
-        margin: 0 auto;
-      }
-    }
-    
-    @media (max-width: 400px) {
-      .magic-title {
-        font-size: 1.6rem;
-      }
-      
-      .celebration-title {
-        font-size: 1.6rem;
-      }
-      
-      .ingredients-instruction {
-        font-size: 1rem;
-      }
-      
-      .ingredient {
-        padding: 12px 5px;
-      }
-      
-      .ingredient-icon {
-        font-size: 2rem;
-      }
-      
-      .ingredient-name {
-        font-size: 0.9rem;
-      }
-      
-      .magic-button {
-        padding: 10px 25px;
-        font-size: 1.2rem;
-      }
+
+    @media (max-width: 650px) {
+      .warmup-title { font-size: 1.6rem; }
+      .qualities-grid { grid-template-columns: repeat(2, 1fr); }
+      .welcome-title { font-size: 1.8rem; }
+      .medal-card { width: 140px; }
     }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="sparkles"></div>
+<div class="track-overlay"></div>
+<div class="dust-particles" id="dustContainer"></div>
 
-<!-- CONSTRUCTOR DEL PASTEL -->
-<div id="cakeBuilder" class="cake-builder" style="display: none;">
-  <h4>🍰 Construyendo tu pastel</h4>
-  <div class="cake-layers">
-    <div class="cake-layer" id="layer8">🕯️ Velas</div>
-    <div class="cake-layer" id="layer7">🌟 Bendiciones</div>
-    <div class="cake-layer" id="layer6">✨ Magia</div>
-    <div class="cake-layer" id="layer5">🦉 Sabiduría</div>
-    <div class="cake-layer" id="layer4">🙏 Gratitud</div>
-    <div class="cake-layer" id="layer3">💪 Fuerza</div>
-    <div class="cake-layer" id="layer2">😊 Alegría</div>
-    <div class="cake-layer" id="layer1">🍯 Dulzura</div>
-    <div class="cake-layer active" id="layer0">❤️ Base de Amor</div>
-  </div>
-  <div class="progress-bar">
-    <div class="progress-fill" id="progressFill"></div>
-  </div>
-</div>
-
-<!-- ANIMACIÓN DEL PASTEL -->
-<div id="cakeAnimation" class="cake-animation">
-  <div class="cake-container">
-    <div class="cake">🎂</div>
-    <div class="candles">🕯️ 🕯️ 🕯️ 🕯️ 🕯️</div>
-    <div class="cake-message">¡Feliz Cumpleaños<br>Mamá Patricia!</div>
-    <button class="continue-btn" onclick="showExperience()">
-      ✨ ¡Ver la Sorpresa! ✨
-    </button>
-  </div>
-</div>
-
-<!-- PANTALLA 1: INGREDIENTES MÁGICOS -->
-<div id="ingredientsScreen" class="screen ingredients-screen active">
-  <h1 class="magic-title">🧙‍♀️ ¡INGREDIENTES MÁGICOS! ✨</h1>
-  <p class="ingredients-instruction">
-    Para preparar el pastel perfecto para Mamá Patricia, necesitas recolectar TODOS los ingredientes mágicos. 
-    ¡No olvides ninguno! 🎯
-  </p>
+<!-- PANTALLA 1: CALENTAMIENTO / CUALIDADES DEL ATLETA -->
+<div id="warmupScreen" class="screen warmup-screen active-screen">
+  <div class="medal-icon">🏅🏃‍♂️</div>
+  <h1 class="warmup-title">🔥 CALENTAMIENTO DE CAMPEÓN 🔥</h1>
+  <p class="warmup-sub">Para celebrar el cumpleaños del #1,<br> debes reunir las cualidades de un verdadero atleta de leyenda.</p>
   
-  <div class="ingredients-grid">
-    <div class="ingredient" data-ingredient="amor" onclick="selectIngredient(this)">
-      <span class="ingredient-icon">❤️</span>
-      <span class="ingredient-name">Amor</span>
+  <div class="qualities-grid" id="qualitiesGrid">
+    <div class="athlete-card" data-quality="velocidad">
+      <span class="athlete-icon">⚡</span>
+      <span class="athlete-name">Velocidad</span>
     </div>
-    <div class="ingredient" data-ingredient="dulzura" onclick="selectIngredient(this)">
-      <span class="ingredient-icon">🍯</span>
-      <span class="ingredient-name">Dulzura</span>
+    <div class="athlete-card" data-quality="resistencia">
+      <span class="athlete-icon">🏋️‍♂️</span>
+      <span class="athlete-name">Resistencia</span>
     </div>
-    <div class="ingredient" data-ingredient="alegria" onclick="selectIngredient(this)">
-      <span class="ingredient-icon">😊</span>
-      <span class="ingredient-name">Alegría</span>
+    <div class="athlete-card" data-quality="disciplina">
+      <span class="athlete-icon">📅</span>
+      <span class="athlete-name">Disciplina</span>
     </div>
-    <div class="ingredient" data-ingredient="fuerza" onclick="selectIngredient(this)">
-      <span class="ingredient-icon">💪</span>
-      <span class="ingredient-name">Fuerza</span>
+    <div class="athlete-card" data-quality="garra">
+      <span class="athlete-icon">🦁</span>
+      <span class="athlete-name">Garra</span>
     </div>
-    <div class="ingredient" data-ingredient="gratitud" onclick="selectIngredient(this)">
-      <span class="ingredient-icon">🙏</span>
-      <span class="ingredient-name">Gratitud</span>
+    <div class="athlete-card" data-quality="estrategia">
+      <span class="athlete-icon">🧠</span>
+      <span class="athlete-name">Estrategia</span>
     </div>
-    <div class="ingredient" data-ingredient="sabiduria" onclick="selectIngredient(this)">
-      <span class="ingredient-icon">🦉</span>
-      <span class="ingredient-name">Sabiduría</span>
+    <div class="athlete-card" data-quality="resistencia_mental">
+      <span class="athlete-icon">🧘‍♂️</span>
+      <span class="athlete-name">Resistencia Mental</span>
     </div>
-    <div class="ingredient" data-ingredient="magia" onclick="selectIngredient(this)">
-      <span class="ingredient-icon">✨</span>
-      <span class="ingredient-name">Magia</span>
+    <div class="athlete-card" data-quality="pasión">
+      <span class="athlete-icon">❤️‍🔥</span>
+      <span class="athlete-name">Pasión</span>
     </div>
-    <div class="ingredient" data-ingredient="bendiciones" onclick="selectIngredient(this)">
-      <span class="ingredient-icon">🌟</span>
-      <span class="ingredient-name">Bendiciones</span>
+    <div class="athlete-card" data-quality="victoria">
+      <span class="athlete-icon">🏆</span>
+      <span class="athlete-name">Victoria</span>
     </div>
   </div>
   
-  <button id="magicButton" class="magic-button" onclick="createMagic()" disabled>
-    🎂 ¡HORNEAR EL PASTEL! 🎂
-  </button>
-  
-  <p style="margin-top: 15px; font-size: 1rem; opacity: 0.8;">
-    <span id="selectedCount">0</span>/8 ingredientes recolectados
-  </p>
+  <button id="startRaceBtn" class="start-race-btn" disabled>🏁 ¡DAR EL PISTOLETAZO! 🏁</button>
+  <div class="counter-badge" id="qualityCounter">Cualidades reunidas: 0 / 8</div>
 </div>
 
-<!-- PANTALLA 2: EXPERIENCIA INTERACTIVA -->
-<div id="experienceScreen" class="screen experience-screen">
-  <div class="experience-container">
-    <h1 class="celebration-title">🎉 ¡FELIZ CUMPLEAÑOS MAMÁ PATRICIA! 🎂</h1>
-    
-    <div class="interactive-sections">
-      <!-- Sección de Recuerdos Especiales -->
-      <div class="section">
-        <h2 class="section-title">📸 Recuerdos Especiales</h2>
-        <div class="memory-card">
-          <h3>💝 Tu Fortaleza Increíble</h3>
-          <p>Solo pasaba a recordarte en tu día lo increíblemente fuerte que eres. La vida tiene sus momentos, pero tú tienes el temple para reinar el mundo. Nunca lo olvides.</p>
-        </div>
-        
-        <div class="photo-gallery">
-          <div class="memory-box" onclick="showPhotoInBox(1, this)">
-            <div class="box-icon">👩</div>
-            <div class="box-label">Foto de Mamá</div>
-            <div class="box-content" style="display: none;">
-              <img src="https://lh3.googleusercontent.com/pw/AP1GczPhZzV51Q2dUHZT-0mpOGu-6WvwTP5Jo_F7a5ns77KbrYBJn02IbAhz83D0uPKe4G4gB_ZUwVl2g-znNziq4kQNV7bV34wqoHOHm68IG_r8sgykolnzKwL8G5yy9P_N9Oi1HHFzXrnG5dDG4m2AqpzMMA=w476-h928-s-no-gm" alt="Foto de Mamá Patricia" class="memory-photo">
-            </div>
-          </div>
-          <div class="memory-box" onclick="showPhotoInBox(2, this)">
-            <div class="box-icon">🎮</div>
-            <div class="box-label">Recuerdos de Juego</div>
-            <div class="box-content" style="display: none;">
-              <img src="https://lh3.googleusercontent.com/pw/AP1GczM2OGm4cgKsPNnUwET7tITQdRwDSYU79OCcPSi17PHQElFnwu0hILGD6XEoXkFb0bmk0KjY35XozoQTnJnBufdavbgxdpZv148WNTLVNAKVa5fqwk_iUix40Sb8Zro7hAUxOkdfIYytB4sFuWMod9pwVg=w928-h928-s-no-gm" alt="Recuerdos de juego" class="memory-photo">
-            </div>
-          </div>
-          <div class="memory-box" onclick="showPhotoInBox(3, this)">
-            <div class="box-icon">🌸</div>
-            <div class="box-label">Especial</div>
-            <div class="box-content" style="display: none;">
-              <img src="https://i.pinimg.com/originals/cf/ea/5c/cfea5c3e7c914b2bd3d392a3df0bac00.jpg" alt="Flores hermosas" class="memory-photo">
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Sección de Buenos Deseos -->
-      <div class="section wishes-section">
-        <h2 class="section-title">🌈 Buenos Deseos para Ti</h2>
-        <div class="wish-card">
-          <strong>🙏 Para tu nuevo año:</strong><br>
-          Espero que hoy estés rodeada de mucho amor y alegría. Te deseo un año lleno de salud, estabilidad y bendiciones. Que Dios te cuide siempre.
-        </div>
-        
-        <div class="wish-card">
-          <strong>💖 Mi Gratitud Infinita:</strong><br>
-          Y sobre todo, quería darte las gracias. Gracias por tus consejos, por tu apoyo y por ser esa figura tan especial en mi vida. Eres como una mamá para mí y te aprecio más de lo que las palabras pueden expresar.
-        </div>
-      </div>
-      
-      <!-- Mensaje Final -->
-      <div class="section final-message">
-        <h2 class="section-title">💌 Mensaje del Corazón</h2>
-        <p>
-          ¡Feliz cumpleaños!<br><br>
-          Te quiero, disfruta mucho tu día mami Martha. 🥳
-        </p>
-        
-        <div class="signature">
-          Con todo mi cariño,<br>
-          Tu hijito Anthon ❤️
-        </div>
+<!-- PANTALLA 2: ESTADIO / HOMENAJE DEPORTIVO -->
+<div id="stadiumScreen" class="screen stadium-screen">
+  <div class="stadium-container">
+    <!-- Foto espectacular del papá atleta -->
+    <div class="hero-photo">
+      <div class="athlete-photo-frame">
+        <img id="dadPhoto" class="athlete-photo" src="padre.jpg" alt="Foto de mi papá atleta" onerror="this.src='https://placehold.co/400x400/2d5a3b/FFD966?text=🏃‍♂️+PAPÁ+ATLETA'">
       </div>
     </div>
     
-    <button class="restart-btn" onclick="goBack()">
-      🔄 Volver a Crear Magia
-    </button>
+    <h1 class="welcome-title">🏅 FELIZ CUMPLEAÑOS, <span>CAMPEÓN</span> 🏅</h1>
+    <div class="sport-stats">
+      <div class="stat-card">🏃‍♂️ Maratón de la Vida: +50 vueltas</div>
+      <div class="stat-card">⚡ Récord de Inspiración: Infinito</div>
+    </div>
+    
+    <div class="interactive-zone">
+      <h2 class="zone-title">🏅 MEDALLERO ESPECIAL 🏅</h2>
+      <div class="medal-grid">
+        <div class="medal-card" data-medal="oro">
+          <div class="medal-emoji">🥇</div>
+          <div>Mejor Padre Atleta</div>
+          <small>#GoldDad</small>
+        </div>
+        <div class="medal-card" data-medal="velocidad">
+          <div class="medal-emoji">⚡</div>
+          <div>Velocidad Legendaria</div>
+          <small>siempre ágil</small>
+        </div>
+        <div class="medal-card" data-medal="resistencia">
+          <div class="medal-emoji">💪</div>
+          <div>Fuerza Inquebrantable</div>
+          <small>ejemplo total</small>
+        </div>
+      </div>
+      
+      <!-- Marcas personales (interactividad) -->
+      <div class="personal-bests" id="personalBests">
+        <h3>📋 MEJORES MARCAS (Tocá para descubrir)</h3>
+        <div class="pb-item" data-pb="pb1">
+          <div class="pb-icon">🏃‍♂️</div>
+          <div><strong>100m planos:</strong> <span id="pb1Value">Récord sorpresa →</span></div>
+        </div>
+        <div class="pb-item" data-pb="pb2">
+          <div class="pb-icon">🏅</div>
+          <div><strong>Media maratón:</strong> <span id="pb2Value">Mensaje especial →</span></div>
+        </div>
+        <div class="pb-item" data-pb="pb3">
+          <div class="pb-icon">❤️</div>
+          <div><strong>Relevo familiar:</strong> <span id="pb3Value">Tu legado →</span></div>
+        </div>
+      </div>
+      
+      <!-- mensaje inspirador y animación de carrera -->
+      <div class="message-runner" id="motivationMessage">
+        “El verdadero atleta no solo compite, sino que inspira a todo un equipo. Gracias por enseñarme a correr tras mis sueños con disciplina y corazón.”
+        <div class="signature-runner">Con orgullo, tu hijo 💙</div>
+      </div>
+      
+      <button id="specialRaceBtn" class="restart-race">🏃‍♂️ ¡CORRE CON PAPÁ! (Sorpresa Atletismo) 🏃‍♂️</button>
+      <button id="resetWarmupBtn" class="restart-race" style="background:#4a6b57; margin-left: 10px;">🔄 Reinatar Ceremonia</button>
+    </div>
   </div>
+</div>
+
+<!-- MODAL DE CARRERA SORPRESA -->
+<div id="raceModal" style="display: none;" class="race-modal">
+  <div class="race-track">
+    <div class="runner-sprite" id="runnerSprite">🏃‍♂️💨</div>
+    <div class="finish-line"></div>
+  </div>
+  <div id="raceMessageBox" class="race-message">🏁 ¡Preparados, listos... YA! 🏁</div>
+  <button id="closeRaceBtn" class="close-race">Cerrar pista</button>
 </div>
 
 <script>
-  // Crear efecto de brillos
-  function crearBrillos() {
-    const sparklesContainer = document.querySelector('.sparkles');
-    setInterval(() => {
-      const sparkle = document.createElement('div');
-      sparkle.classList.add('sparkle');
-      sparkle.textContent = '✨';
-      sparkle.style.left = Math.random() * 100 + 'vw';
-      sparkle.style.top = Math.random() * 100 + 'vh';
-      sparkle.style.animationDelay = Math.random() * 2 + 's';
-      sparklesContainer.appendChild(sparkle);
-      setTimeout(() => { sparkle.remove(); }, 2000);
-    }, 800);
+  // -------- POLVO / EFECTOS DINÁMICOS ----------
+  function createDust() {
+    const container = document.getElementById('dustContainer');
+    for(let i=0; i<35; i++) {
+      let dust = document.createElement('div');
+      dust.classList.add('dust');
+      let size = Math.random() * 18 + 5;
+      dust.style.width = size + 'px';
+      dust.style.height = size + 'px';
+      dust.style.left = Math.random() * 100 + '%';
+      dust.style.bottom = '0px';
+      dust.style.animationDelay = Math.random() * 8 + 's';
+      dust.style.animationDuration = Math.random() * 4 + 3 + 's';
+      container.appendChild(dust);
+    }
   }
+  createDust();
   
-  crearBrillos();
+  // ---------- SISTEMA DE CUALIDADES (INGREDIENTES DEPORTIVOS) ----------
+  const qualityElements = document.querySelectorAll('.athlete-card');
+  let selectedQualities = new Set();  // almacena data-quality
+  const totalQualities = 8;
+  const startBtn = document.getElementById('startRaceBtn');
+  const counterSpan = document.getElementById('qualityCounter');
   
-  // Sistema de ingredientes mágicos
-  let selectedIngredients = [];
-  const totalIngredients = 8;
-  const ingredientLayers = ['amor', 'dulzura', 'alegria', 'fuerza', 'gratitud', 'sabiduria', 'magia', 'bendiciones'];
-  
-  function selectIngredient(element) {
-    const ingredient = element.dataset.ingredient;
-    
-    if (element.classList.contains('selected')) {
-      // Deseleccionar
-      element.classList.remove('selected');
-      selectedIngredients = selectedIngredients.filter(i => i !== ingredient);
-      hideLayerInCake(ingredient);
+  function updateWarmupUI() {
+    const count = selectedQualities.size;
+    counterSpan.innerText = `Cualidades reunidas: ${count} / ${totalQualities}`;
+    if(count === totalQualities) {
+      startBtn.disabled = false;
+      startBtn.style.opacity = '1';
+      startBtn.style.cursor = 'pointer';
     } else {
-      // Seleccionar
-      element.classList.add('selected');
-      selectedIngredients.push(ingredient);
-      showLayerInCake(ingredient);
-    }
-    
-    updateUI();
-  }
-  
-  function showLayerInCake(ingredient) {
-    const cakeBuilder = document.getElementById('cakeBuilder');
-    if (selectedIngredients.length === 1) {
-      cakeBuilder.style.display = 'block';
-    }
-    
-    const layerIndex = ingredientLayers.indexOf(ingredient);
-    if (layerIndex !== -1) {
-      const layer = document.getElementById(`layer${layerIndex + 1}`);
-      if (layer) {
-        layer.classList.add('active');
-      }
-    }
-    
-    // Actualizar barra de progreso
-    const progressFill = document.getElementById('progressFill');
-    const progress = (selectedIngredients.length / totalIngredients) * 100;
-    progressFill.style.width = progress + '%';
-  }
-  
-  function hideLayerInCake(ingredient) {
-    const layerIndex = ingredientLayers.indexOf(ingredient);
-    if (layerIndex !== -1) {
-      const layer = document.getElementById(`layer${layerIndex + 1}`);
-      if (layer) {
-        layer.classList.remove('active');
-      }
-    }
-    
-    // Actualizar barra de progreso
-    const progressFill = document.getElementById('progressFill');
-    const progress = (selectedIngredients.length / totalIngredients) * 100;
-    progressFill.style.width = progress + '%';
-    
-    // Ocultar constructor si no hay ingredientes
-    if (selectedIngredients.length === 0) {
-      document.getElementById('cakeBuilder').style.display = 'none';
+      startBtn.disabled = true;
     }
   }
   
-  function updateUI() {
-    const countElement = document.getElementById('selectedCount');
-    const magicButton = document.getElementById('magicButton');
-    
-    countElement.textContent = selectedIngredients.length;
-    
-    if (selectedIngredients.length === totalIngredients) {
-      magicButton.disabled = false;
-      magicButton.style.animation = 'bounce 1s ease-in-out infinite';
+  function handleQualityClick(e) {
+    const card = e.currentTarget;
+    const quality = card.dataset.quality;
+    if(selectedQualities.has(quality)) {
+      selectedQualities.delete(quality);
+      card.classList.remove('selected');
     } else {
-      magicButton.disabled = true;
-      magicButton.style.animation = 'none';
+      selectedQualities.add(quality);
+      card.classList.add('selected');
+      // efecto sutil
+      card.style.transform = 'scale(0.98)';
+      setTimeout(() => { card.style.transform = ''; }, 120);
+    }
+    updateWarmupUI();
+  }
+  
+  qualityElements.forEach(card => {
+    card.addEventListener('click', handleQualityClick);
+  });
+  
+  // Función para pasar del calentamiento al estadio (pantalla principal)
+  function goToStadium() {
+    // esconder pantalla warmup, mostrar stadium
+    document.getElementById('warmupScreen').classList.remove('active-screen');
+    document.getElementById('stadiumScreen').classList.add('active-screen');
+    // Generar confeti de pista
+    launchConfetti(30);
+  }
+  
+  startBtn.addEventListener('click', () => {
+    if(selectedQualities.size === totalQualities) {
+      goToStadium();
+    }
+  });
+  
+  // confetti ligero de celebración deportiva
+  function launchConfetti(count) {
+    const dustDiv = document.getElementById('dustContainer');
+    for(let i=0;i<count;i++) {
+      let particle = document.createElement('div');
+      particle.style.position = 'fixed';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = '0%';
+      particle.style.fontSize = Math.random() * 28 + 18 + 'px';
+      particle.style.pointerEvents = 'none';
+      particle.style.zIndex = '999';
+      particle.style.opacity = '0.9';
+      const icons = ['🏅','🎽','🏃‍♂️','🏆','⚡','💪','🎉','🥇'];
+      particle.innerText = icons[Math.floor(Math.random()*icons.length)];
+      particle.style.animation = `dustFloat 1.5s ease-out forwards`;
+      dustDiv.appendChild(particle);
+      setTimeout(() => particle.remove(), 1500);
     }
   }
   
-  function createMagic() {
-    // Mostrar animación de construcción del pastel en vivo
-    showLiveCakeAnimation();
-  }
-  
-  function showLiveCakeAnimation() {
-    const cakeAnimation = document.getElementById('cakeAnimation');
-    const cakeContainer = cakeAnimation.querySelector('.cake-container');
-    
-    // Limpiar contenido anterior
-    cakeContainer.innerHTML = '<div class="live-cake-title">🎂 ¡Creando tu pastel mágico! ✨</div>';
-    
-    // Mostrar la pantalla de animación
-    cakeAnimation.style.display = 'flex';
-    
-    // Ocultar el constructor del lado
-    document.getElementById('cakeBuilder').style.display = 'none';
-    
-    // Construir el pastel paso a paso
-    buildCakeStep(0, cakeContainer);
-  }
-  
-  function buildCakeStep(step, container) {
-    const cakeSteps = [
-      { emoji: '🥧', text: 'Preparando la base con amor...', delay: 1000 },
-      { emoji: '🍰', text: 'Agregando dulzura...', delay: 1000 },
-      { emoji: '🎂', text: 'Mezclando alegría y fuerza...', delay: 1000 },
-      { emoji: '🧁', text: 'Espolvoreando gratitud...', delay: 1000 },
-      { emoji: '🍮', text: 'Añadiendo sabiduría...', delay: 1000 },
-      { emoji: '✨', text: 'Aplicando magia especial...', delay: 1000 },
-      { emoji: '🌟', text: 'Cubriendo con bendiciones...', delay: 1000 },
-      { emoji: '🕯️', text: 'Encendiendo las velas...', delay: 1500 }
-    ];
-    
-    if (step < cakeSteps.length) {
-      const currentStep = cakeSteps[step];
-      
-      // Crear elemento de paso
-      const stepDiv = document.createElement('div');
-      stepDiv.className = 'cake-build-step';
-      stepDiv.innerHTML = `
-        <div class="step-cake">${currentStep.emoji}</div>
-        <div class="step-text">${currentStep.text}</div>
-      `;
-      
-      container.appendChild(stepDiv);
-      
-      // Crear efecto de brillo
-      createBuildingSparkles();
-      
-      // Continuar con el siguiente paso
-      setTimeout(() => {
-        buildCakeStep(step + 1, container);
-      }, currentStep.delay);
-      
-    } else {
-      // Animación final del pastel completado
-      setTimeout(() => {
-        showCompletedCake(container);
-      }, 500);
-    }
-  }
-  
-  function createBuildingSparkles() {
-    const sparklesContainer = document.querySelector('.sparkles');
-    for(let i = 0; i < 10; i++) {
-      setTimeout(() => {
-        const sparkle = document.createElement('div');
-        sparkle.classList.add('sparkle');
-        sparkle.textContent = '✨';
-        sparkle.style.left = Math.random() * 100 + 'vw';
-        sparkle.style.top = Math.random() * 100 + 'vh';
-        sparkle.style.fontSize = (Math.random() * 15 + 10) + 'px';
-        sparklesContainer.appendChild(sparkle);
-        setTimeout(() => { sparkle.remove(); }, 2000);
-      }, i * 100);
-    }
-  }
-  
-  function showCompletedCake(container) {
-    // Limpiar pasos anteriores
-    container.innerHTML = '';
-    
-    // Mostrar pastel final con gran explosión
-    container.innerHTML = `
-      <div class="cake">🎂</div>
-      <div class="candles">🕯️ 🕯️ 🕯️ 🕯️ 🕯️</div>
-      <div class="cake-message">¡Feliz Cumpleaños<br>Mamá Patricia!</div>
-      <button class="continue-btn" onclick="showExperience()">
-        ✨ ¡Ver la Sorpresa! ✨
-      </button>
-    `;
-    
-    // Gran explosión de confetti
-    createCakeConfetti();
-  }
-  
-  function createCakeConfetti() {
-    const sparklesContainer = document.querySelector('.sparkles');
-    for(let i = 0; i < 50; i++) {
-      setTimeout(() => {
-        const sparkle = document.createElement('div');
-        sparkle.classList.add('sparkle');
-        const confettiTypes = ['🎉', '🎊', '✨', '🌟', '🎂', '🎈'];
-        sparkle.textContent = confettiTypes[Math.floor(Math.random() * confettiTypes.length)];
-        sparkle.style.left = Math.random() * 100 + 'vw';
-        sparkle.style.top = Math.random() * 100 + 'vh';
-        sparkle.style.fontSize = (Math.random() * 25 + 20) + 'px';
-        sparklesContainer.appendChild(sparkle);
-        setTimeout(() => { sparkle.remove(); }, 3000);
-      }, i * 100);
-    }
-  }
-  
-  function showExperience() {
-    // Ocultar animación del pastel
-    document.getElementById('cakeAnimation').style.display = 'none';
-    
-    // Mostrar pantalla de experiencia
-    document.getElementById('experienceScreen').classList.add('active');
-    window.scrollTo(0, 0);
-  }
-  
-  function showPhotoInBox(photoId, boxElement) {
-    const contentDiv = boxElement.querySelector('.box-content');
-    const iconDiv = boxElement.querySelector('.box-icon');
-    const labelDiv = boxElement.querySelector('.box-label');
-    
-    if (contentDiv.style.display === 'none') {
-      // Mostrar la foto
-      contentDiv.style.display = 'block';
-      iconDiv.style.display = 'none';
-      labelDiv.style.display = 'none';
-      
-      // Agregar efecto especial
-      boxElement.style.transform = 'scale(1.05)';
-      boxElement.style.background = 'linear-gradient(145deg, #ff6b6b, #ffa500)';
-      
-    } else {
-      // Ocultar la foto y volver al estado original
-      contentDiv.style.display = 'none';
-      iconDiv.style.display = 'block';
-      labelDiv.style.display = 'block';
-      
-      boxElement.style.transform = 'scale(1)';
-      boxElement.style.background = 'linear-gradient(145deg, #4ecdc4, #44a08d)';
-    }
-  }
-  
-  function goBack() {
-    selectedIngredients = [];
-    document.querySelectorAll('.ingredient').forEach(ing => {
-      ing.classList.remove('selected');
+  // -------- PANTALLA ESTADIO: INTERACTIVIDAD ----------
+  // Medallas con mensajes emergentes
+  const medalCards = document.querySelectorAll('.medal-card');
+  medalCards.forEach(medal => {
+    medal.addEventListener('click', (e) => {
+      const type = medal.dataset.medal;
+      let msg = '';
+      if(type === 'oro') msg = '🥇 Medalla de Oro al Mejor Papá Atleta del Universo. Tu constancia y cariño no tienen competencia.';
+      else if(type === 'velocidad') msg = '⚡ Récord de velocidad: siempre llegas primero a darnos apoyo y amor.';
+      else msg = '💪 Resistencia legendaria: has superado cada obstáculo con la fuerza de un maratonista.';
+      alert(msg);
     });
-    
-    // Resetear constructor del pastel
-    document.getElementById('cakeBuilder').style.display = 'none';
-    document.querySelectorAll('.cake-layer').forEach((layer, index) => {
-      if (index === 0) {
-        layer.classList.add('active'); // Base de amor siempre visible
-      } else {
-        layer.classList.remove('active');
+  });
+  
+  // Mejores marcas interactivas (muestra mensajes personalizados)
+  const pbItems = document.querySelectorAll('.pb-item');
+  const pbSpans = {
+    pb1: document.getElementById('pb1Value'),
+    pb2: document.getElementById('pb2Value'),
+    pb3: document.getElementById('pb3Value')
+  };
+  // al cargar, mostramos pistas ocultas pero con efecto sorpresa al hacer click
+  pbItems.forEach(item => {
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', (e) => {
+      const pbId = item.dataset.pb;
+      if(pbId === 'pb1') {
+        pbSpans.pb1.innerText = '🏁 9"83 (récord de papá en el corazón de la familia)';
+      } else if(pbId === 'pb2') {
+        pbSpans.pb2.innerText = '🏅 1h 45min – cada kilómetro con sonrisa y fortaleza';
+      } else if(pbId === 'pb3') {
+        pbSpans.pb3.innerText = '❤️ Relevo eterno: enseñaste el valor del esfuerzo, eso no se mide en tiempo.';
       }
+      item.style.backgroundColor = '#ffd96630';
+      setTimeout(() => item.style.backgroundColor = '', 800);
     });
-    document.getElementById('progressFill').style.width = '0%';
-    
-    updateUI();
-    
-    document.getElementById('experienceScreen').classList.remove('active');
-    document.getElementById('ingredientsScreen').classList.add('active');
-    window.scrollTo(0, 0);
+  });
+  
+  // Foto: efecto especial al hacer clic en la imagen
+  const dadImg = document.getElementById('dadPhoto');
+  if(dadImg) {
+    dadImg.addEventListener('click', () => {
+      dadImg.style.transform = 'scale(1.02) rotate(2deg)';
+      setTimeout(() => dadImg.style.transform = '', 300);
+      launchConfetti(12);
+      const msgs = ['¡PAPÁ ATLETA!', '🏃‍♂️ Récord de cariño', '💪 Más fuerte que nunca'];
+      alert(msgs[Math.floor(Math.random()*msgs.length)]);
+    });
   }
+  
+  // ANIMACIÓN DE CARRERA (SORPRESA DE ATLETISMO ESPECTACULAR)
+  const specialRaceBtn = document.getElementById('specialRaceBtn');
+  const raceModal = document.getElementById('raceModal');
+  const runner = document.getElementById('runnerSprite');
+  const raceMsgBox = document.getElementById('raceMessageBox');
+  const closeRaceBtn = document.getElementById('closeRaceBtn');
+  let animationFrame = null;
+  let startTime = null;
+  let raceActive = false;
+  
+  function animateRace() {
+    if(!raceActive) return;
+    const elapsed = (Date.now() - startTime) / 1000; // segundos
+    let progress = Math.min(1, elapsed / 2.5); // dura 2.5 segundos la carrera
+    const trackDiv = document.querySelector('.race-track');
+    const trackRect = trackDiv.getBoundingClientRect();
+    const maxLeft = trackRect.width - 70;
+    let leftPos = progress * maxLeft;
+    if(runner) runner.style.left = Math.min(maxLeft, leftPos) + 'px';
+    
+    if(progress >= 1) {
+      // Llegada
+      if(raceActive) {
+        raceActive = false;
+        cancelAnimationFrame(animationFrame);
+        raceMsgBox.innerHTML = '🏆 ¡META! ¡HAS CRUZADO CON GLORIA! 🏆<br> Feliz cumpleaños, campeón. Eres nuestro héroe.';
+        runner.style.left = maxLeft + 'px';
+        launchConfetti(45);
+      }
+    } else {
+      animationFrame = requestAnimationFrame(animateRace);
+    }
+  }
+  
+  function startRaceEffect() {
+    if(animationFrame) cancelAnimationFrame(animationFrame);
+    raceModal.style.display = 'flex';
+    // reset runner position
+    if(runner) runner.style.left = '0px';
+    raceMsgBox.innerHTML = '🏁 ¡Preparados, listos... YA! 🏁';
+    raceActive = true;
+    startTime = Date.now();
+    animationFrame = requestAnimationFrame(animateRace);
+  }
+  
+  specialRaceBtn.addEventListener('click', () => {
+    startRaceEffect();
+  });
+  
+  closeRaceBtn.addEventListener('click', () => {
+    raceModal.style.display = 'none';
+    if(animationFrame) cancelAnimationFrame(animationFrame);
+    raceActive = false;
+  });
+  
+  // Reiniciar ceremonia (volver a calentamiento)
+  const resetBtn = document.getElementById('resetWarmupBtn');
+  resetBtn.addEventListener('click', () => {
+    // Resetear todas las cualidades
+    selectedQualities.clear();
+    qualityElements.forEach(card => {
+      card.classList.remove('selected');
+    });
+    updateWarmupUI();
+    // Cambiar pantalla
+    document.getElementById('stadiumScreen').classList.remove('active-screen');
+    document.getElementById('warmupScreen').classList.add('active-screen');
+    // reiniciar textos de marcas personales a estado original
+    if(pbSpans.pb1) pbSpans.pb1.innerText = 'Récord sorpresa →';
+    if(pbSpans.pb2) pbSpans.pb2.innerText = 'Mensaje especial →';
+    if(pbSpans.pb3) pbSpans.pb3.innerText = 'Tu legado →';
+    // opcional cerrar modal si estaba abierto
+    if(raceModal.style.display === 'flex') raceModal.style.display = 'none';
+    if(animationFrame) cancelAnimationFrame(animationFrame);
+    raceActive = false;
+    launchConfetti(8);
+  });
+  
+  // Al cargar la foto asegurarse que la imagen del repositorio se muestre correctamente
+  // si no se ve, el fallback ya funciona, pero intentamos cargar padre.jpg tal cual está en el repo
+  const photoElement = document.getElementById('dadPhoto');
+  if(photoElement) {
+    photoElement.src = 'padre.jpg'; 
+    photoElement.onerror = () => { photoElement.src = 'https://placehold.co/400x400/2d5a3b/FFD966?text=🏃‍♂️+PAPÁ+ATLETA'; };
+  }
+  
+  // añadir pequeñas estrellas deportivas en el estadio al cargar
+  window.addEventListener('load', () => {
+    // si queremos pre-cargar algo
+    console.log('🏅 Estadio listo para el campeón');
+  });
+  
 </script>
 </body>
 </html>
